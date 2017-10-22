@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropsTypes from "prop-types";
 
-import Post from "./../Post.jsx"
+import Post from "./Post.jsx"
 
 class List extends Component {
     constructor() {
