@@ -5,11 +5,11 @@ mongoose.connect("mongodb://localhost/blog");
 const connection = mongoose.connection;
 
 connection.on("error", function(error) {
-    console.log("error! : ", error);
+    console.log("DB connection error!: ", error);
 });
 
 connection.on("open", function() {
-    console.log("Polaczono z baza!");
+    console.log("DB connected!");
 });
 
 const postSchema = mongoose.Schema({
@@ -21,7 +21,6 @@ const server = new express();
 
 server.get("/posts", function (request, response) {
     model.find({}, function (err, data) {
-        console.log(err);
         response.json(data);
     });
 });
