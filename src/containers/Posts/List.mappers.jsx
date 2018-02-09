@@ -1,7 +1,6 @@
 import { fetchPosts } from "./../../redux/effects/posts";
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         posts: state.posts.list.data || [],
         status: state.posts.status || "PROGRESS",

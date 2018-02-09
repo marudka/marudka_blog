@@ -3,7 +3,7 @@ import { Route, Switch } from "react-router-dom";
 import { Container, Row, Col, Breadcrumb, BreadcrumbItem } from "reactstrap";
 
 import Home from "./Home.jsx";
-import Login from "./Login.jsx";
+import Login from "./../../containers/pages/Login";
 import Contact from "./Contact.jsx";
 import Navigation from "./Navigation.jsx";
 

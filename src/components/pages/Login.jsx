@@ -1,20 +1,18 @@
-import React from "react";
-import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import React, { Component } from "react";
+import PropsTypes from "prop-types";
 
-function Login() {
+import LoginForm from "./../../containers/Login/LoginForm.js";
+import AddPost from "./../../containers/Login/AddPost.js";
+
+function Login({ authenticated }) {
+    const content = authenticated ? <AddPost /> : <LoginForm />;
     return (
-        <Form>
-            <FormGroup>
-                <Label for="exampleEmail">Email</Label>
-                <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
-            </FormGroup>
-            <FormGroup>
-                <Label for="examplePassword">Password</Label>
-                <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
-            </FormGroup>
-            <Button>Submit</Button>
-        </Form>
-    );
+        <div>{content}</div>
+    )
 }
+
+Login.propTypes = {
+    authenticated: PropsTypes.bool.isRequired,
+};
 
 export default Login;

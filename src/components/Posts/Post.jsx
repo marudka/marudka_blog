@@ -2,16 +2,25 @@ import React from "react";
 import { Jumbotron, Badge } from "reactstrap";
 import PropTypes from "prop-types";
 
+const colorsMap = {
+    React: "primary",
+    Redux: "danger"
+};
+
 function Post({ post }) {
+    const tags = post.tags.map((tag) => {
+        const badgeClass = colorsMap[tag] || "primary";
+        return <Badge color={badgeClass}>{tag}</Badge>
+    });
     return (
         <Jumbotron>
             <h3 className="display-5">{post.title}</h3>
             <hr className="my-2" />
-            <p className="mb-0">Marudka</p>
+            <p className="mb-0">{post.author}</p>
             <hr className="my-2" />
-            <p className="lead">This is a simple hero unit, a simple Jumbotron-style component for calling extra attention to featured content or information.</p>
+            <p className="lead">{post.content}</p>
             <div className="lead">
-                <h5><Badge color="primary">React</Badge>, <Badge color="danger">Redux</Badge></h5>
+                <h5>{tags}</h5>
             </div>
         </Jumbotron>
     );

@@ -1,38 +1,27 @@
 const defaultState = {
-    posts: {
-        list: [],
-    },
+    list: [],
 };
 
-const reducer = (state = defaultState, action) => {
+const posts = (state = defaultState, action) => {
     switch (action.type) {
         case "GET_POSTS":
             state = {
                 ...state,
-                posts: {
-                    ...state.posts,
-                    status: "PROGRESS",
-                }
+                status: "PROGRESS",
             };
             break;
         case "GET_POSTS_SUCCESS":
             state = {
                 ...state,
-                posts: {
-                    ...state.posts,
-                    status: "READY",
-                    list: action.payload.posts,
-                }
+                status: "READY",
+                list: action.payload.posts,
             };
             break;
         case "GET_POSTS_ERROR":
             state = {
                 ...state,
-                posts: {
-                    ...state.posts,
-                    status: "ERROR",
-                    error: action.payload.error,
-                }
+                status: "ERROR",
+                error: action.payload.error,
             };
             break;
     }
@@ -40,4 +29,4 @@ const reducer = (state = defaultState, action) => {
     return state;
 };
 
-export default reducer;
+export default posts;
