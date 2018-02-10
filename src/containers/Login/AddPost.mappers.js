@@ -1,13 +1,16 @@
 import { addPost } from "./../../redux/effects/addPost";
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        addPost: (data) => {
-            dispatch(addPost(data))
-        }
+const mapStateToProps = state => ({
+    user: state.login.user.login,
+});
+
+const mapDispatchToProps = dispatch => ({
+    addPost: (data) => {
+        dispatch(addPost(data))
     }
-};
+});
 
 export {
+    mapStateToProps,
     mapDispatchToProps,
 }

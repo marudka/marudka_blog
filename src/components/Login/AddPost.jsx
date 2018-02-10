@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropsTypes from "prop-types";
-
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
+import { WithContext as ReactTags } from 'react-tag-input';
 
 class AddPost extends Component {
     constructor(props){
@@ -9,11 +9,15 @@ class AddPost extends Component {
         this.state = {
             title: "",
             content: "",
+            tags: [],
         };
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.handleChangeTextarea = this.handleChangeTextarea.bind(this);
         this.handleOnClick = this.handleOnClick.bind(this);
+        this.handleDelete = this.handleDelete.bind(this);
+        this.handleAddition = this.handleAddition.bind(this);
+        this.handleDrag = this.handleDrag.bind(this);
     }
 
     handleTitleChange(event) {
@@ -28,15 +32,45 @@ class AddPost extends Component {
         const data = {
             "title": this.state.title,
             "content": this.state.content,
-            "author": "Marudka",
-            "tags": ["react", "redux"]
+            "author": this.props.user,
+            "tags": this.state.tags,
         };
         this.props.addPost(data);
     }
 
+    handleDelete(i) {
+        let tags = this.state.tags;
+        tags.splice(i, 1);
+        this.setState({tags: tags});
+    }
+
+    handleAddition(tag) {
+        let tags = this.state.tags;
+        tags.push({
+            id: tags.length + 1,
+            text: tag
+        });
+        this.setState({tags: tags});
+    }
+
+    handleDrag(tag, currPos, newPos) {
+        let tags = this.state.tags;
+
+        // mutate array
+        tags.splice(currPos, 1);
+        tags.splice(newPos, 0, tag);
+
+        // re-render
+        this.setState({ tags: tags });
+    }
+
     render() {
+        const { tags } = this.state;
+        let suggestions = ["React", "Redux", "Webpack", "Angular"];
+
         return (
             <Form>
+                <h3>Hello {this.props.user}!</h3>
                 <FormGroup>
                     <Label for="exampleEmail">Title</Label>
                     <Input
@@ -45,9 +79,15 @@ class AddPost extends Component {
                      />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="examplePassword">Password</Label>
+                    <Label for="examplePassword">Post content</Label>
                     <Input type="textarea" name="text" id="exampleText" onChange={this.handleChangeTextarea} />
                 </FormGroup>
+                <ReactTags tags={tags}
+                   suggestions={suggestions}
+                   handleDelete={this.handleDelete}
+                   handleAddition={this.handleAddition}
+                   handleDrag={this.handleDrag}
+                />
                 <Button onClick={this.handleOnClick}>Submit</Button>
             </Form>
         );
@@ -56,6 +96,7 @@ class AddPost extends Component {
 
 AddPost.propTypes = {
     addPost: PropsTypes.func.isRequired,
+    user: PropsTypes.string.isRequired,
 };
 
 export default AddPost;

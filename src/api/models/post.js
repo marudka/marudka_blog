@@ -4,7 +4,12 @@ const postSchema = mongoose.Schema({
     title: String,
     content: String,
     author: String,
-    tags: [String],
+    tags: [
+        {
+            id: Number,
+            text: String
+        }
+    ],
     date: {type: Date, default: Date.now}
 });
 

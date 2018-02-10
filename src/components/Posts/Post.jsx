@@ -1,6 +1,7 @@
 import React from "react";
 import { Jumbotron, Badge } from "reactstrap";
 import PropTypes from "prop-types";
+import dateFns from "date-fns";
 
 const colorsMap = {
     React: "primary",
@@ -9,14 +10,16 @@ const colorsMap = {
 
 function Post({ post }) {
     const tags = post.tags.map((tag) => {
-        const badgeClass = colorsMap[tag] || "primary";
-        return <Badge color={badgeClass}>{tag}</Badge>
+        const badgeClass = colorsMap[tag.text] || "primary";
+        return <Badge key={tag.id} color={badgeClass}>{tag.text}</Badge>
     });
+    console.log(post);
+    const date = dateFns.format(post.date, 'DD/MM/YYYY');
     return (
         <Jumbotron>
             <h3 className="display-5">{post.title}</h3>
             <hr className="my-2" />
-            <p className="mb-0">{post.author}</p>
+            <p className="mb-0">{post.author}, {date}</p>
             <hr className="my-2" />
             <p className="lead">{post.content}</p>
             <div className="lead">
