@@ -19,7 +19,7 @@ function Post({ post }) {
         <Jumbotron>
             <h3 className="display-5">{post.title}</h3>
             <hr className="my-2" />
-            <p className="mb-0">{post.author}, {date}</p>
+            <p className="mb-0"><strong>{post.author}</strong>, {date}</p>
             <hr className="my-2" />
             <p className="lead">{post.content}</p>
             <div className="lead">

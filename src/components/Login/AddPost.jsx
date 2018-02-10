@@ -3,6 +3,9 @@ import PropsTypes from "prop-types";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { WithContext as ReactTags } from 'react-tag-input';
 
+import InputValidator from "./../Form/InputValidator.jsx";
+import rules from "./../Form/rules.const";
+
 class AddPost extends Component {
     constructor(props){
         super(props);
@@ -10,6 +13,7 @@ class AddPost extends Component {
             title: "",
             content: "",
             tags: [],
+            test: "",
         };
 
         this.handleTitleChange = this.handleTitleChange.bind(this);
@@ -18,6 +22,7 @@ class AddPost extends Component {
         this.handleDelete = this.handleDelete.bind(this);
         this.handleAddition = this.handleAddition.bind(this);
         this.handleDrag = this.handleDrag.bind(this);
+        this.test = this.test(this);
     }
 
     handleTitleChange(event) {
@@ -64,6 +69,10 @@ class AddPost extends Component {
         this.setState({ tags: tags });
     }
 
+    test(event) {
+        console.log(event);
+    }
+
     render() {
         const { tags } = this.state;
         let suggestions = ["React", "Redux", "Webpack", "Angular"];
@@ -72,15 +81,20 @@ class AddPost extends Component {
             <Form>
                 <h3>Hello {this.props.user}!</h3>
                 <FormGroup>
-                    <Label for="exampleEmail">Title</Label>
-                    <Input
-                        type="email" name="login" id="exampleEmail" placeholder="with a placeholder"
-                        onChange={this.handleTitleChange}
-                     />
+                    <Label>Title</Label>
+                    <Input onChange={this.handleTitleChange} />
                 </FormGroup>
                 <FormGroup>
-                    <Label for="examplePassword">Post content</Label>
-                    <Input type="textarea" name="text" id="exampleText" onChange={this.handleChangeTextarea} />
+                    <Label>Post content</Label>
+                    <Input type="textarea" onChange={this.handleChangeTextarea} />
+                </FormGroup>
+
+                <FormGroup>
+                    <Label>test</Label>
+                    <InputValidator
+                        onChange={this.test}
+                        rule={rules["login"]}
+                    />
                 </FormGroup>
                 <ReactTags tags={tags}
                    suggestions={suggestions}
